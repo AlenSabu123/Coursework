@@ -1,5 +1,5 @@
 FROM openjdk:17
-COPY ./target/Coursework-1.0-SNAPSHOT-jar-with-dependencies.jar /tmp
+COPY ./target/Coursework-0.1.0.2-SNAPSHOT-jar-with-dependencies.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "Coursework-1.0-SNAPSHOT-jar-with-dependencies.jar"]
+ENTRYPOINT ["java", "-jar", "Coursework-0.1.0.2-SNAPSHOT-jar-with-dependencies.jar"]
 
