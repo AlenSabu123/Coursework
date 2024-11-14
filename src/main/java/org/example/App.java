@@ -1,8 +1,6 @@
 package org.example;
 
-import java.sql.Connection;       // Import for Connection
-import java.sql.DriverManager;   // Import for DriverManager
-import java.sql.SQLException;     // Import for SQLException
+import java.sql.*;
 
 
 public class App {
@@ -10,12 +8,44 @@ public class App {
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
+    private static Connection con = null;
+
+    /**
+     * jijijoi
+     * @param args ioilujlouj
+     */
+    //main method
+    public static void main(String[] args) throws SQLException {
+
+        //intialisation of app object.
+        App a = new App();
+        //connect to database
+        a.connect(args);
+
+
+        // Create an SQL statement
+        Statement stmt = con.createStatement();
+        // Create string for SQL statement
+        String strSelect =
+                "SELECT Name, Population " +
+                        "FROM country " +
+                        "WHERE Continent = 'Africa' "+// Using parameterized query would be ideal, but staying consist
+        "ORDER BY Population DESC";
+        // Execute SQL statement
+        ResultSet rset = stmt.executeQuery(strSelect);
+
+        //disconnect from database.
+        a.disconnect();
+
+    }
+
+
+
 
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
+    public void connect(String[] params)
     {
         try
         {
@@ -35,9 +65,14 @@ public class App {
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(6000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                if(params.length == 0) {
+                    con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                }
+                else {
+                    con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?useSSL=false", "root", "example");
+                }
                 System.out.println("Successfully connected");
                 break;
             }
