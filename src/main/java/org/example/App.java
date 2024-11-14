@@ -23,7 +23,7 @@ public class App {
         a.connect(args);
 
 
-        // Create an SQL statement
+        // Crea te an SQL statement
         Statement stmt = con.createStatement();
         // Create string for SQL statement
         String strSelect =
