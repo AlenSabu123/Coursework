@@ -34,6 +34,16 @@ public class App {
         // Execute SQL statement
         ResultSet rset = stmt.executeQuery(strSelect);
 
+        String allCountriesPopulationLargestToSmallest =
+                "SELECT Name" +
+                        "FROM world" +
+                        // Using parameterized query would be ideal, but staying consist
+                        "ORDER BY Population DESC";
+
+        // Execute SQL statement
+        ResultSet rset1 = stmt.executeQuery(allCountriesPopulationLargestToSmallest);
+
+
         //disconnect fr om database.
         a.disconnect();
 
