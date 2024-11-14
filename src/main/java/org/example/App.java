@@ -34,7 +34,7 @@ public class App {
         // Execute SQL statement
         ResultSet rset = stmt.executeQuery(strSelect);
 
-        //disconnect from database.
+        //disconnect fr om database.
         a.disconnect();
 
     }
