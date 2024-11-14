@@ -24,7 +24,7 @@ public class App {
      * jijijoi
      * @param args ioilujlouj
      */
-    //main method
+    //main meth od
     public static void main(String[] args) throws SQLException {
 
         //intialisation of app object.
