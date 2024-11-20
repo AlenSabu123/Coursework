@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import org.example.App;
 
 //class for test
 class MyTest
