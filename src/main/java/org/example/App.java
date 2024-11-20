@@ -5,6 +5,16 @@ import java.sql.*;
 
 public class App {
 
+
+    public static class Countries{
+
+    public String CountryName;
+
+    public int Population;
+
+
+
+    }
     /**
      * Connection to MySQL database.
      */
@@ -14,14 +24,15 @@ public class App {
      * jijijoi
      * @param args ioilujlouj
      */
-    //main method
+    //main meth od
     public static void main(String[] args) throws SQLException {
 
         //intialisation of app object.
         App a = new App();
+        System.out.println("Test");
         //connect to database
         a.connect(args);
-
+        System.out.println("Test");
 
         // Crea te an SQL statement
         Statement stmt = con.createStatement();
@@ -31,18 +42,23 @@ public class App {
                         "FROM country " +
                         "WHERE Continent = 'Africa' "+// Using parameterized query would be ideal, but staying consist
         "ORDER BY Population DESC";
+
+
         // Execute SQL statement
         ResultSet rset = stmt.executeQuery(strSelect);
+        boolean isCorrect = false;
+        while(rset.next()) {
+            // Display results
+            Countries queryTwo = new Countries();
+            queryTwo.CountryName = rset.getString("Name");
+            queryTwo.Population= rset.getInt("Population");
+            isCorrect = true;
+            System.out.println(queryTwo.CountryName + " Population = " + queryTwo.Population);
 
-        String allCountriesPopulationLargestToSmallest =
-                "SELECT Name" +
-                        "FROM world" +
-                        // Using parameterized query would be ideal, but staying consist
-                        "ORDER BY Population DESC";
-
-        // Execute SQL statement
-        ResultSet rset1 = stmt.executeQuery(allCountriesPopulationLargestToSmallest);
-
+        }  if(!isCorrect) {
+            // If no results were found
+            System.out.println("Unsuccessful");
+        }
 
         //disconnect fr om database.
         a.disconnect();
