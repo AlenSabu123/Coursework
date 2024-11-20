@@ -16,7 +16,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Package with Maven
-        run: mvn package
+        run: mvn clean package
 
       - name: List target directory contents
         run: ls -R target
