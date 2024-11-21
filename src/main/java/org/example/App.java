@@ -10,49 +10,58 @@ public class App {
 
     public ArrayList<Countries> getCountriesInContinent(String continent) throws SQLException {
         // Create an SQL statement
-        Statement stmt = con.createStatement();
-
         if (continent == null) {
             System.out.println("Continent parameter is null");
             return new ArrayList<>(); // Return an empty list if continent is null
         }
+        try {
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Name, Population " +
+                            "FROM country " +
+                            "WHERE Continent = '" + continent + "' " + // Use the continent parameter
+                            "ORDER BY Population DESC";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<Countries> queryTwoList = new ArrayList<>();
+            boolean isCorrect = false;
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String CountryName = rset.getString("Name");
+                int Population = rset.getInt("Population");
+
+                // Format the string to store in the list
+                Countries queryTwoInfo = new Countries(CountryName, Population); //queryTwo.CountryName + " Population = " + queryTwo.Population;
+                queryTwoList.add(queryTwoInfo);
+                isCorrect = true;
+
+                // Optionally, print the result
+                System.out.println(CountryName + " Population = " + Population);
+            }
+
+            // If no results were found, print a message
+            if (!isCorrect) {
+                System.out.println("Unsuccessful");
+            }
+            return queryTwoList;
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+
 
         // Create string for SQL statement using the continent parameter
-        String strSelect =
-                "SELECT Name, Population " +
-                        "FROM country " +
-                        "WHERE Continent = '" + continent + "' " + // Use the continent parameter
-                        "ORDER BY Population DESC";
 
-        // Execute SQL statement
-        ResultSet rset = stmt.executeQuery(strSelect);
-
-        // List to store country information
-        ArrayList<Countries> queryTwoList = new ArrayList<>();
-        boolean isCorrect = false;
-
-        // Process the results from the query
-        while (rset.next()) {
-            // Retrieve country name and population
-            String CountryName = rset.getString("Name");
-            int Population = rset.getInt("Population");
-
-            // Format the string to store in the list
-            Countries queryTwoInfo = new Countries(CountryName, Population); //queryTwo.CountryName + " Population = " + queryTwo.Population;
-            queryTwoList.add(queryTwoInfo);
-            isCorrect = true;
-
-            // Optionally, print the result
-            System.out.println(CountryName + " Population = " + Population);
-        }
-
-        // If no results were found, print a message
-        if (!isCorrect) {
-            System.out.println("Unsuccessful");
-        }
 
         // Return the list as a string array
-        return queryTwoList;
+
     }
 
     /**
