@@ -14,6 +14,7 @@ public class App {
             System.out.println("Continent parameter is null");
             return new ArrayList<>(); // Return an empty list if continent is null
         }
+        //try statement handling exception of query
         try {
             Statement stmt = con.createStatement();
             String strSelect =

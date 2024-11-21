@@ -19,6 +19,7 @@ class MyTest
     @Test
     void getCountriesInContinentTestNull()
     {
+        //try catch block carries out exception handling
         try {
             app.getCountriesInContinent(null);
         } catch (SQLException e) {
