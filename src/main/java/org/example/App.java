@@ -61,6 +61,105 @@ public class App {
 
     }
 
+    public ArrayList<Countries> getTopNPopulatedCountries(int n) throws SQLException {
+        // Validate input parameter
+        if (n <= 0 ) {
+            System.out.println("Invalid input: N must be greater than 0");
+            return new ArrayList<>(); // Return an empty list if N is invalid
+        }
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Name, Population " +
+                            "FROM country " +
+                            "ORDER BY Population DESC " +
+                            "LIMIT " + n; // Fetch only the top N records
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<Countries> QueryFourList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String countryName = rset.getString("Name");
+                int population = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                Countries countryInfo = new Countries(countryName, population);
+                QueryFourList.add(countryInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QueryFourList.isEmpty()) {
+                System.out.println("No countries found.");
+            }
+
+            return QueryFourList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+
+    public ArrayList<Countries> getTopNPopulatedCountriesSix(String Region,int n) throws SQLException {
+        // Validate input parameter
+        if (n <= 0 ) {
+            System.out.println("Invalid input: N must be greater than 0");
+            return new ArrayList<>(); // Return an empty list if N is invalid
+        }
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Name, Population " +
+                            "FROM country " +
+                            "WHERE region = '" + Region + "' " +
+                            "ORDER BY Population DESC " +
+                            "LIMIT " + n; // Fetch only the top N records
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<Countries> QuerySixList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String countryName = rset.getString("Name");
+                int population = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                Countries countryInfo = new Countries(countryName, population);
+                QuerySixList.add(countryInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QuerySixList.isEmpty()) {
+                System.out.println("No countries found.");
+            }
+
+            return QuerySixList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
     /**
      * Connection to MySQL database.
      */
@@ -78,6 +177,7 @@ public class App {
         App a = new App();
         a.connect(args);
 
+        System.out.println("This is query 1 " + "\n");
         ArrayList<Countries> countriesInAfrica = a.getCountriesInContinent("Africa");
 
         //  print the result if conditions is passed
@@ -89,6 +189,27 @@ public class App {
         } else {
             System.out.println("No countries found in Africa.");
         }
+
+
+
+        System.out.println("This is query 4" + "\n");
+
+        ArrayList<Countries> TopNCountriesWorld = a.getTopNPopulatedCountries(4);
+
+
+        for (Countries  TopNCountriesWorldStorage: TopNCountriesWorld ) {
+            System.out.println(TopNCountriesWorldStorage.CountryName + " Population = " + TopNCountriesWorldStorage.Population);
+        }
+
+
+        System.out.println("This is query 6" + "\n");
+        ArrayList<Countries> TopNCountriesRegion = a.getTopNPopulatedCountriesSix("Caribbean",5);
+
+        for (Countries TopNCountriesRegionStorage : TopNCountriesRegion ) {
+            System.out.println(TopNCountriesRegionStorage.CountryName + " Population = " + TopNCountriesRegionStorage.Population);
+        }
+
+
 
         // Disconnect from the database
         a.disconnect();
