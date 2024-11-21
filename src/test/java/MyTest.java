@@ -6,7 +6,7 @@ import java.sql.SQLException;
 //class for my test
 class MyTest
 {
-    //static a[[ object
+    //static app object
     static App app;
 
     @BeforeAll
