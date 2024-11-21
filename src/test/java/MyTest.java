@@ -14,12 +14,12 @@ class MyTest
     }
 
     @Test
-    void getCountriesInContinentTestNull() {
+    void getCountriesInContinentTestNull()
+    {
         try {
-            app.getCountriesInContinent(null);  // Just call the method
+            app.getCountriesInContinent(null);
         } catch (SQLException e) {
-            // If an exception is thrown, print a message (optional, for logging purposes)
-            System.out.println("SQLException was thrown: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }
