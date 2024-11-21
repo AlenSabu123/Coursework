@@ -1,15 +1,29 @@
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.example.App;
+import java.sql.SQLException;
 
-//class for test
+//class for my test
 class MyTest
 {
-    //method for unit test.
-    @Test
-    void unitTest()
+    //static app object
+    static App app;
+
+    @BeforeAll
+    static void init()
     {
-        //check if the two values are equal.
-        assertEquals(5, 5);
+        app = new App();
+    }
+
+    //Test to test if method getCountriesInContinent is working
+    @Test
+    void getCountriesInContinentTestNull()
+    {
+        //try catch block carries out exception handling
+        try {
+            app.getCountriesInContinent(null);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
