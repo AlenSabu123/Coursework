@@ -7,13 +7,14 @@ import java.util.List;
 
 public class App {
 
-
+//instantiating class to carry out query takes in paramter continent.
     public ArrayList<Countries> getCountriesInContinent(String continent) throws SQLException {
         // Create an SQL statement
         if (continent == null) {
             System.out.println("Continent parameter is null");
             return new ArrayList<>(); // Return an empty list if continent is null
         }
+        //try statement handling exception of query
         try {
             Statement stmt = con.createStatement();
             String strSelect =
@@ -40,7 +41,7 @@ public class App {
                 queryTwoList.add(queryTwoInfo);
                 isCorrect = true;
 
-                // Optionally, print the result
+                // print the result
                 System.out.println(CountryName + " Population = " + Population);
             }
 
@@ -57,10 +58,6 @@ public class App {
 
 
 
-        // Create string for SQL statement using the continent parameter
-
-
-        // Return the list as a string array
 
     }
 
@@ -74,7 +71,7 @@ public class App {
      *
      * @param args ioilujlouj
      */
-    //main meth od
+    //main method
     public static void main(String[] args) throws SQLException {
 
         //intialisation of app object.
@@ -83,7 +80,7 @@ public class App {
 
         ArrayList<Countries> countriesInAfrica = a.getCountriesInContinent("Africa");
 
-        // Optionally, print the result
+        //  print the result if conditions is passed
         if (countriesInAfrica != null && countriesInAfrica.stream().count() > 0) {
             System.out.println("Countries in Africa:");
             for (Countries countryInfo : countriesInAfrica) {
