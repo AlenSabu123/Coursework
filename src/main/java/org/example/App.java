@@ -7,7 +7,7 @@ import java.util.List;
 
 public class App {
 
-//instantiating class to carry out query takes in paramter continent.
+    //instantiating class to carry out query takes in paramter continent.
     public ArrayList<Countries> getCountriesInContinent(String continent) throws SQLException {
         // Create an SQL statement
         if (continent == null) {
@@ -50,15 +50,58 @@ public class App {
                 System.out.println("Unsuccessful");
             }
             return queryTwoList;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
+    }
 
 
+    public ArrayList<Countries> getCountriesInWorld(String country) throws SQLException {
+        // Create an SQL statement
+        if (country == null) {
+            System.out.println("country parameter is null");
+            return new ArrayList<>(); // Return an empty list if country is null
+        }
+        //try statement handling exception of query
+        try {
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Name, Population " +
+                            "FROM country " +
+                            "ORDER BY Population DESC";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<Countries> queryOneList = new ArrayList<>();
+            boolean isCorrect = false;
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String CountryName = rset.getString("Name");
+                int Population = rset.getInt("Population");
+
+                // Format the string to store in the list
+                Countries queryOneInfo = new Countries(CountryName, Population); //queryTwo.CountryName + " Population = " + queryOne.Population;
+                queryOneList.add(queryOneInfo);
 
 
+                // print the result
+                System.out.println(CountryName + " Population = " + Population);
+            }
+
+            // If no results were found, print a message
+            if (!isCorrect) {
+                System.out.println("Unsuccessful");
+            }
+            return queryOneList;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -90,7 +133,15 @@ public class App {
             System.out.println("No countries found in Africa.");
         }
 
-        // Disconnect from the database
+
+
+
+
+
+
+
+
+            // Disconnect from the database
         a.disconnect();
     }
 
