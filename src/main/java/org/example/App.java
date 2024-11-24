@@ -9,7 +9,7 @@ public class App {
 
 //instantiating class to carry out query takes in paramter continent.
     public ArrayList<Countries> getCountriesInContinent(String continent) throws SQLException {
-        // Create an SQL sttement
+        // Create an SQL statement
         if (continent == null) {
             System.out.println("Continent parameter is null");
             return new ArrayList<>(); // Return an empty list if continent is null
