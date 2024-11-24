@@ -177,7 +177,7 @@ public class App {
         App a = new App();
         a.connect(args);
 
-        System.out.println("This is query 1 " + "\n");
+        System.out.println("This is query 2 " + "\n");
         ArrayList<Countries> countriesInAfrica = a.getCountriesInContinent("Africa");
 
         //  print the result if conditions is passed
