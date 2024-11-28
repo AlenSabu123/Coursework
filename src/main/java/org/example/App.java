@@ -7,62 +7,14 @@ import java.util.List;
 
 public class App {
 
-    //instantiating class to carry out query takes in paramter continent.
-    public ArrayList<Countries> getCountriesInContinent(String continent) throws SQLException {
+
+
+
+    public ArrayList<Countries> getCountriesInWorld() throws SQLException {
         // Create an SQL statement
-        if (continent == null) {
-            System.out.println("Continent parameter is null");
-            return new ArrayList<>(); // Return an empty list if continent is null
-        }
-        //try statement handling exception of query
-        try {
-            Statement stmt = con.createStatement();
-            String strSelect =
-                    "SELECT Name, Population " +
-                            "FROM country " +
-                            "WHERE Continent = '" + continent + "' " + // Use the continent parameter
-                            "ORDER BY Population DESC";
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // List to store country information
-            ArrayList<Countries> queryTwoList = new ArrayList<>();
-            boolean isCorrect = false;
-
-            // Process the results from the query
-            while (rset.next()) {
-                // Retrieve country name and population
-                String CountryName = rset.getString("Name");
-                int Population = rset.getInt("Population");
-
-                // Format the string to store in the list
-                Countries queryTwoInfo = new Countries(CountryName, Population); //queryTwo.CountryName + " Population = " + queryTwo.Population;
-                queryTwoList.add(queryTwoInfo);
-                isCorrect = true;
-
-                // print the result
-                System.out.println(CountryName + " Population = " + Population);
-            }
-
-            // If no results were found, print a message
-            if (!isCorrect) {
-                System.out.println("Unsuccessful");
-            }
-            return queryTwoList;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
 
 
-    public ArrayList<Countries> getCountriesInWorld(String country) throws SQLException {
-        // Create an SQL statement
-        if (country == null) {
-            System.out.println("country parameter is null");
-            return new ArrayList<>(); // Return an empty list if country is null
-        }
+
         //try statement handling exception of query
         try {
             Statement stmt = con.createStatement();
@@ -85,12 +37,10 @@ public class App {
                 int Population = rset.getInt("Population");
 
                 // Format the string to store in the list
-                Countries queryOneInfo = new Countries(CountryName, Population); //queryTwo.CountryName + " Population = " + queryOne.Population;
+                Countries queryOneInfo = new Countries(CountryName, Population); //queryOne.CountryName + " Population = " + queryOne.Population;
                 queryOneList.add(queryOneInfo);
+                isCorrect = true;
 
-
-                // print the result
-                System.out.println(CountryName + " Population = " + Population);
             }
 
             // If no results were found, print a message
@@ -103,6 +53,11 @@ public class App {
             return null;
         }
     }
+
+
+
+
+
 
     /**
      * Connection to MySQL database.
@@ -121,23 +76,17 @@ public class App {
         App a = new App();
         a.connect(args);
 
-        ArrayList<Countries> countriesInAfrica = a.getCountriesInContinent("Africa");
+        ArrayList<Countries> getCountriesInWorld= a.getCountriesInWorld();
 
         //  print the result if conditions is passed
-        if (countriesInAfrica != null && countriesInAfrica.stream().count() > 0) {
-            System.out.println("Countries in Africa:");
-            for (Countries countryInfo : countriesInAfrica) {
+        if (getCountriesInWorld != null && getCountriesInWorld.stream().count() > 0) {
+            System.out.println("Countries in World:");
+            for (Countries countryInfo : getCountriesInWorld) {
                 System.out.println(countryInfo.CountryName + " Population = " + countryInfo.Population);
             }
         } else {
-            System.out.println("No countries found in Africa.");
+            System.out.println("No countries found in the World.");
         }
-
-
-
-
-
-
 
 
 
