@@ -10,38 +10,34 @@ public class App {
 
 
 
-    public ArrayList<Cities> topNCitiesInRegion(String cities,int n) throws SQLException {
+    public ArrayList<Countries> allCapitalCitiesInWorld(String cities,String region) throws SQLException {
         // Create an SQL statement
-        // Validate input parameter
-        if (n <= 0 ) {
-            System.out.println("Invalid input: N must be greater than 0");
-            return new ArrayList<>(); // Return an empty list if N is invalid
-        }
+
 
         //try statement handling exception of query
         try {
             Statement stmt = con.createStatement();
             String strSelect =
-                    "SELECT Name " +
-                            "FROM city  " +
-                            "ORDER BY Population DESC"
-                            "LIMIT " + n;
+                    "SELECT Name,Region " +
+                            "FROM country  " +
+                            "ORDER BY SurfaceArea DESC";
+
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
             // List to store city information
-            ArrayList<Cities> queryFourteenList = new ArrayList<>();
+            ArrayList<Countries> queryNineteenList = new ArrayList<>();
             boolean isCorrect = false;
 
             // Process the results from the query
             while (rset.next()) {
-                // Retrieve country name and population
-                String CountryName = rset.getString("Name");
-                int Population = rset.getInt("Population");
+                // Retrieve city name and population
+                String CityName = rset.getString("Name");
+                String Region = rset.getString("Region");
 
                 // Format the string to store in the list
-                Countries queryFourteenInfo = new Cities(Cities, Population); //queryOne.CountryName + " Population = " + queryOne.Population;
-                queryFourteenList.add(queryFourteenInfo);
+                Countries queryNineteenInfo = new Countries(cities, region); //queryOne.CountryName + " Population = " + queryOne.Population;
+                queryNineteenList.add(queryNineteenInfo);
                 isCorrect = true;
 
             }
@@ -50,7 +46,7 @@ public class App {
             if (!isCorrect) {
                 System.out.println("Unsuccessful");
             }
-            return queryFourteenList;
+            return queryNineteenList;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -77,13 +73,13 @@ public class App {
         App a = new App();
         a.connect(args);
 
-        ArrayList<Countries> topNCitiesInRegion= a.topNCitiesInRegion();
+        ArrayList<Countries> allCapitalCitiesInWorld= a.allCapitalCitiesInWorld();
 
         //  print the result if conditions is passed
-        if (topNCitiesInRegion != null && topNCitiesInRegion.stream().count() > 0) {
+        if (allCapitalCitiesInWorld != null && allCapitalCitiesInWorld.stream().count() > 0) {
             System.out.println("Cities in Region:");
-            for (Countries countryInfo : topNCitiesInRegion) {
-                System.out.println(countryInfo.cities + " Population = " + countryInfo.Population);
+            for (Countries countryInfo : allCapitalCitiesInWorld) {
+                System.out.println(countryInfo.cities + " Region = " + countryInfo.region);
             }
         } else {
             System.out.println("No cities found in the region.");
