@@ -1,6 +1,5 @@
 public class Cities {
 
-    public class Cities {
 
         //Instantiation of country name attribute
         public String CityName;
@@ -15,4 +14,4 @@ public class Cities {
 
     }
 
-}
+
