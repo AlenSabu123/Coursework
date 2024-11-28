@@ -7,51 +7,212 @@ import java.util.List;
 
 public class App {
 
-
-
-
-    public ArrayList<Countries> allCapitalCitiesInWorld(String cities,String region) throws SQLException {
+//instantiating class to carry out query takes in paramter continent.
+    public ArrayList<Countries> getCountriesInContinent(String continent) throws SQLException {
         // Create an SQL statement
-
-
+        if (continent == null) {
+            System.out.println("Continent parameter is null");
+            return new ArrayList<>(); // Return an empty list if continent is null
+        }
         //try statement handling exception of query
         try {
             Statement stmt = con.createStatement();
             String strSelect =
-                    "SELECT Name,Region " +
-                            "FROM country  " +
-                            "ORDER BY SurfaceArea DESC";
+                    "SELECT Name, Population " +
+                            "FROM country " +
+                            "WHERE Continent = '" + continent + "' " + // Use the continent parameter
+                            "ORDER BY Population DESC";
 
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            // List to store city information
-            ArrayList<Countries> queryNineteenList = new ArrayList<>();
+            // List to store country information
+            ArrayList<Countries> queryTwoList = new ArrayList<>();
             boolean isCorrect = false;
 
             // Process the results from the query
             while (rset.next()) {
-                // Retrieve city name and population
-                String CityName = rset.getString("Name");
-                String Region = rset.getString("Region");
+                // Retrieve country name and population
+                String CountryName = rset.getString("Name");
+                int Population = rset.getInt("Population");
 
                 // Format the string to store in the list
-                Countries queryNineteenInfo = new Countries(cities, region); //queryOne.CountryName + " Population = " + queryOne.Population;
-                queryNineteenList.add(queryNineteenInfo);
+                Countries queryTwoInfo = new Countries(CountryName, Population); //queryTwo.CountryName + " Population = " + queryTwo.Population;
+                queryTwoList.add(queryTwoInfo);
                 isCorrect = true;
 
+                // print the result
+                System.out.println(CountryName + " Population = " + Population);
             }
 
             // If no results were found, print a message
             if (!isCorrect) {
                 System.out.println("Unsuccessful");
             }
-            return queryNineteenList;
-        } catch (Exception e) {
+            return queryTwoList;
+        }
+        catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
+
+
+
+
     }
+
+    public ArrayList<Countries> getTopNPopulatedCountries(int n) throws SQLException {
+        // Validate input parameter
+        if (n <= 0 ) {
+            System.out.println("Invalid input: N must be greater than 0");
+            return new ArrayList<>(); // Return an empty list if N is invalid
+        }
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Name, Population " +
+                            "FROM country " +
+                            "ORDER BY Population DESC " +
+                            "LIMIT " + n; // Fetch only the top N records
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<Countries> QueryFourList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String countryName = rset.getString("Name");
+                int population = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                Countries countryInfo = new Countries(countryName, population);
+                QueryFourList.add(countryInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QueryFourList.isEmpty()) {
+                System.out.println("No countries found.");
+            }
+
+            return QueryFourList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public ArrayList<Countries> getTopNPopulatedCountriesFive(String Continent,int n) throws SQLException {
+        // Validate input parameter
+        if (n <= 0 ) {
+            System.out.println("Invalid input: N must be greater than 0");
+            return new ArrayList<>(); // Return an empty list if N is invalid
+        }
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Name, Population " +
+                            "FROM country " +
+                            "WHERE Continent = '" + Continent + "' " +
+                            "ORDER BY Population DESC " +
+                            "LIMIT " + n; // Fetch only the top N records
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<Countries> QueryFiveList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String countryName = rset.getString("Name");
+                int population = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                Countries countryInfo = new Countries(countryName, population);
+                QueryFiveList.add(countryInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QueryFiveList.isEmpty()) {
+                System.out.println("No countries found.");
+            }
+
+            return QueryFiveList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+    public ArrayList<Countries> getTopNPopulatedCountriesSix(String Region,int n) throws SQLException {
+        // Validate input parameter
+        if (n <= 0 ) {
+            System.out.println("Invalid input: N must be greater than 0");
+            return new ArrayList<>(); // Return an empty list if N is invalid
+        }
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Name, Population " +
+                            "FROM country " +
+                            "WHERE Region = '" + Region + "' " +
+                            "ORDER BY Population DESC " +
+                            "LIMIT " + n; // Fetch only the top N records
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<Countries> QuerySixList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String countryName = rset.getString("Name");
+                int population = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                Countries countryInfo = new Countries(countryName, population);
+                QuerySixList.add(countryInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QuerySixList.isEmpty()) {
+                System.out.println("No countries found.");
+            }
+
+            return QuerySixList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
 
 
 
@@ -73,31 +234,55 @@ public class App {
         App a = new App();
         a.connect(args);
 
-        ArrayList<Countries> allCapitalCitiesInWorld= a.allCapitalCitiesInWorld();
+        System.out.println("This is query 2 " + "\n");
+        ArrayList<Countries> countriesInAfrica = a.getCountriesInContinent("Africa");
 
         //  print the result if conditions is passed
-        if (allCapitalCitiesInWorld != null && allCapitalCitiesInWorld.stream().count() > 0) {
-            System.out.println("Cities in Region:");
-            for (Countries countryInfo : allCapitalCitiesInWorld) {
-                System.out.println(countryInfo.cities + " Region = " + countryInfo.region);
+        if (countriesInAfrica != null && countriesInAfrica.stream().count() > 0) {
+            System.out.println("Countries in Africa:");
+            for (Countries countryInfo : countriesInAfrica) {
+                System.out.println(countryInfo.CountryName + " Population = " + countryInfo.Population);
             }
         } else {
-            System.out.println("No cities found in the region.");
+            System.out.println("No countries found in Africa.");
         }
 
 
 
+        System.out.println("This is query 4" + "\n");
 
-            // Disconnect from the database
+        ArrayList<Countries> TopNCountriesWorld = a.getTopNPopulatedCountries(4);
+
+
+        for (Countries  TopNCountriesWorldStorage: TopNCountriesWorld ) {
+            System.out.println(TopNCountriesWorldStorage.CountryName + " Population = " + TopNCountriesWorldStorage.Population);
+        }
+
+        System.out.println("This is query 5" + "\n");
+
+        ArrayList<Countries> TopNCountriesContinent = a.getTopNPopulatedCountriesFive("Asia",4);
+
+
+        for (Countries  TopNCountriesContinentStorage: TopNCountriesContinent ) {
+            System.out.println(TopNCountriesContinentStorage.CountryName + " Population = " + TopNCountriesContinentStorage.Population);
+        }
+
+
+        System.out.println("This is query 6" + "\n");
+        ArrayList<Countries> TopNCountriesRegion = a.getTopNPopulatedCountriesSix("Caribbean",5);
+
+        for (Countries TopNCountriesRegionStorage : TopNCountriesRegion ) {
+            System.out.println(TopNCountriesRegionStorage.CountryName + " Population = " + TopNCountriesRegionStorage.Population);
+        }
+
+
+        // Disconnect from the database
         a.disconnect();
     }
 
-
-
-
-        /**
-         * Connect to the MySQL database.
-         */
+    /**
+     * Connect to the MySQL database.
+     */
     public void connect(String[] params) {
         try {
             // Load Database driver
