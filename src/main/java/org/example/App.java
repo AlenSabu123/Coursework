@@ -159,11 +159,6 @@ public class App {
     }
 
 
-
-
-
-
-
     public ArrayList<Countries> getTopNPopulatedCountriesSix(String Region,int n) throws SQLException {
         // Validate input parameter
         if (n <= 0 ) {
@@ -212,6 +207,59 @@ public class App {
             return null;
         }
     }
+
+
+    public ArrayList<CapitalCity> getTopNPopulatedCapitalCitiesWorld(int n) throws SQLException {
+        // Validate input parameter
+        if (n <= 0 ) {
+            System.out.println("Invalid input: N must be greater than 0");
+            return new ArrayList<>(); // Return an empty list if N is invalid
+        }
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Capital, city.Population " +
+                            "FROM country JOIN city ON country.capital = city.id " +
+                            "ORDER BY city.Population DESC " +
+                            "LIMIT " + n; // Fetch only the top N records
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<CapitalCity> QueryTwentyList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String CapitalCityName = rset.getString("Capital");
+                int CapitalCityPopulation = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                CapitalCity CapitalCitiesInfo = new CapitalCity(CapitalCityName, CapitalCityPopulation);
+                QueryTwentyList.add(CapitalCitiesInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QueryTwentyList.isEmpty()) {
+                System.out.println("No capital cities found.");
+            }
+
+            return QueryTwentyList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+
+
 
 
 
@@ -274,6 +322,14 @@ public class App {
         for (Countries TopNCountriesRegionStorage : TopNCountriesRegion ) {
             System.out.println(TopNCountriesRegionStorage.CountryName + " Population = " + TopNCountriesRegionStorage.Population);
         }
+
+        System.out.println("This is query 20" + "\n");
+        ArrayList<CapitalCity> TopNCapitalContinent = a.getTopNPopulatedCapitalCitiesWorld(5);
+
+        for (CapitalCity TopNCapitalContinentStorage : TopNCapitalContinent ) {
+            System.out.println(TopNCapitalContinentStorage.CapitalCityName + " Population = " + TopNCapitalContinentStorage.CapitalCityPopulation);
+        }
+
 
 
         // Disconnect from the database
