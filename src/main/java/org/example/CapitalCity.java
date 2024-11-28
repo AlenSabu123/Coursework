@@ -5,6 +5,8 @@ public class CapitalCity {
     //Instantiation of country name attribute
     public String CapitalCityName;
 
+    public String Region;
+
     //Instantiation of country population attribute
     public int CapitalCityPopulation;
 
@@ -12,6 +14,7 @@ public class CapitalCity {
     public CapitalCity(String CapitalCityName, int CapitalCityPopulation){
         this.CapitalCityName = CapitalCityName;
         this.CapitalCityPopulation = CapitalCityPopulation;
+
     }
 
 

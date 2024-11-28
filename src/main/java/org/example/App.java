@@ -37,7 +37,7 @@ public class App {
                 int Population = rset.getInt("Population");
 
                 // Format the string to store in the list
-                Countries queryTwoInfo = new Countries(CountryName, Population); //queryTwo.CountryName + " Population = " + queryTwo.Population;
+                Countries queryTwoInfo = new Countries(CountryName,"", Population); //queryTwo.CountryName + " Population = " + queryTwo.Population;
                 queryTwoList.add(queryTwoInfo);
                 isCorrect = true;
 
@@ -91,7 +91,7 @@ public class App {
                 int population = rset.getInt("Population");
 
                 // Create a Countries object and add it to the list
-                Countries countryInfo = new Countries(countryName, population);
+                Countries countryInfo = new Countries(countryName,"", population);
                 QueryFourList.add(countryInfo);
 
             }
@@ -140,7 +140,7 @@ public class App {
                 int population = rset.getInt("Population");
 
                 // Create a Countries object and add it to the list
-                Countries countryInfo = new Countries(countryName, population);
+                Countries countryInfo = new Countries(countryName,"", population);
                 QueryFiveList.add(countryInfo);
 
             }
@@ -195,7 +195,7 @@ public class App {
                 int population = rset.getInt("Population");
 
                 // Create a Countries object and add it to the list
-                Countries countryInfo = new Countries(countryName, population);
+                Countries countryInfo = new Countries(countryName, "",population);
                 QuerySixList.add(countryInfo);
 
             }
@@ -206,6 +206,54 @@ public class App {
             }
 
             return QuerySixList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+    public ArrayList<CapitalCity> allCapitalCitiesInARegion(String Region) throws SQLException {
+        // Validate input parameter
+
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                   "SELECT Capital, city.population " +
+                           "FROM country JOIN city ON country.capital = city.id " +
+                           "WHERE Region = '" + Region + "' " +
+                           "ORDER BY city.population DESC ";
+
+
+
+                           // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<CapitalCity> QueryNineteenList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String CapitalCity = rset.getString("Capital");
+                int CapitalCityPopulation = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                CapitalCity captialCityNineteenInfo = new CapitalCity(CapitalCity,CapitalCityPopulation);
+                QueryNineteenList.add(captialCityNineteenInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QueryNineteenList.isEmpty()) {
+                System.out.println("No countries found.");
+            }
+
+            return QueryNineteenList;
         }  catch (Exception e) {
             // Handle any other exceptions
             System.out.println("Error: " + e.getMessage());
@@ -274,6 +322,18 @@ public class App {
         for (Countries TopNCountriesRegionStorage : TopNCountriesRegion ) {
             System.out.println(TopNCountriesRegionStorage.CountryName + " Population = " + TopNCountriesRegionStorage.Population);
         }
+
+
+        System.out.println("This is query 19" + "\n");
+
+        ArrayList<CapitalCity> allCapitalCitiesInARegion = a.allCapitalCitiesInARegion("Caribbean");
+
+
+        for (CapitalCity allCapitalCitiesInARegionStorage: allCapitalCitiesInARegion ) {
+            System.out.println(allCapitalCitiesInARegionStorage.CapitalCityName + " Population = " + allCapitalCitiesInARegionStorage.CapitalCityPopulation);
+        }
+
+
 
 
         // Disconnect from the database
