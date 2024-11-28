@@ -10,23 +10,27 @@ public class App {
 
 
 
-    public ArrayList<Countries> getCountriesInWorld() throws SQLException {
+    public ArrayList<Cities> topNCitiesInRegion(int n) throws SQLException {
         // Create an SQL statement
-
+        // Validate input parameter
+        if (n <= 0 ) {
+            System.out.println("Invalid input: N must be greater than 0");
+            return new ArrayList<>(); // Return an empty list if N is invalid
+        }
 
         //try statement handling exception of query
         try {
             Statement stmt = con.createStatement();
             String strSelect =
-                    "SELECT Name, Population " +
-                            "FROM country " +
+                    "SELECT Name " +
+                            "FROM city " +
                             "ORDER BY Population DESC";
-
+                            "LIMIT " + n;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            // List to store country information
-            ArrayList<Countries> queryOneList = new ArrayList<>();
+            // List to store city information
+            ArrayList<Cities> queryOneList = new ArrayList<>();
             boolean isCorrect = false;
 
             // Process the results from the query
@@ -87,10 +91,10 @@ public class App {
 
 
 
+
             // Disconnect from the database
         a.disconnect();
     }
-
 
 
 
