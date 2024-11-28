@@ -213,6 +213,10 @@ public class App {
         }
     }
 
+
+
+
+
     /**
      * Connection to MySQL database.
      */
@@ -270,7 +274,6 @@ public class App {
         for (Countries TopNCountriesRegionStorage : TopNCountriesRegion ) {
             System.out.println(TopNCountriesRegionStorage.CountryName + " Population = " + TopNCountriesRegionStorage.Population);
         }
-
 
 
         // Disconnect from the database
