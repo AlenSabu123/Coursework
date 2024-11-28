@@ -109,6 +109,59 @@ public class App {
         }
     }
 
+    public ArrayList<Countries> getTopNPopulatedCountriesFive(String Continent,int n) throws SQLException {
+        // Validate input parameter
+        if (n <= 0 ) {
+            System.out.println("Invalid input: N must be greater than 0");
+            return new ArrayList<>(); // Return an empty list if N is invalid
+        }
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Name, Population " +
+                            "FROM country " +
+                            "WHERE Continent = '" + Continent + "' " +
+                            "ORDER BY Population DESC " +
+                            "LIMIT " + n; // Fetch only the top N records
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<Countries> QueryFiveList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String countryName = rset.getString("Name");
+                int population = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                Countries countryInfo = new Countries(countryName, population);
+                QueryFiveList.add(countryInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QueryFiveList.isEmpty()) {
+                System.out.println("No countries found.");
+            }
+
+            return QueryFiveList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+
+
+
 
 
     public ArrayList<Countries> getTopNPopulatedCountriesSix(String Region,int n) throws SQLException {
@@ -124,7 +177,7 @@ public class App {
             String strSelect =
                     "SELECT Name, Population " +
                             "FROM country " +
-                            "WHERE region = '" + Region + "' " +
+                            "WHERE Region = '" + Region + "' " +
                             "ORDER BY Population DESC " +
                             "LIMIT " + n; // Fetch only the top N records
 
@@ -199,6 +252,15 @@ public class App {
 
         for (Countries  TopNCountriesWorldStorage: TopNCountriesWorld ) {
             System.out.println(TopNCountriesWorldStorage.CountryName + " Population = " + TopNCountriesWorldStorage.Population);
+        }
+
+        System.out.println("This is query 5" + "\n");
+
+        ArrayList<Countries> TopNCountriesContinent = a.getTopNPopulatedCountriesFive("Asia",4);
+
+
+        for (Countries  TopNCountriesContinentStorage: TopNCountriesContinent ) {
+            System.out.println(TopNCountriesContinentStorage.CountryName + " Population = " + TopNCountriesContinentStorage.Population);
         }
 
 
