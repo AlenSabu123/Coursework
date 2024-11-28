@@ -6,12 +6,12 @@ public class Countries {
     //Instantiation of country name attribute
     public String CountryName;
     //Instantiation of country population attribute
-    public int Population;
+    public String Region;
 
     //constructor for countries class
     public Countries(String name, int pop){
         this.CountryName = name;
-        this.Population = pop;
+        this.Region = Region;
     }
 
 }
