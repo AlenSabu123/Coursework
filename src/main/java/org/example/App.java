@@ -229,7 +229,7 @@ public class App {
             ResultSet rset = stmt.executeQuery(strSelect);
 
             // List to store country information
-            ArrayList<CapitalCity> QueryTwentyList = new ArrayList<>();
+            ArrayList<CapitalCity> QueryTwentyOneList = new ArrayList<>();
 
 
             // Process the results from the query
@@ -240,22 +240,75 @@ public class App {
 
                 // Create a Countries object and add it to the list
                 CapitalCity CapitalCitiesInfo = new CapitalCity(CapitalCityName, CapitalCityPopulation);
-                QueryTwentyList.add(CapitalCitiesInfo);
+                QueryTwentyOneList.add(CapitalCitiesInfo);
 
             }
 
             // If no results were found, print a message
-            if (QueryTwentyList.isEmpty()) {
+            if (QueryTwentyOneList.isEmpty()) {
                 System.out.println("No capital cities found.");
             }
 
-            return QueryTwentyList;
+            return QueryTwentyOneList;
         }  catch (Exception e) {
             // Handle any other exceptions
             System.out.println("Error: " + e.getMessage());
             return null;
         }
     }
+
+
+
+
+    public ArrayList<CapitalCity> getTopNPopulatedCapitalCitiesContinent(String Continent,int n) throws SQLException {
+        // Validate input parameter
+        if (n <= 0 ) {
+            System.out.println("Invalid input: N must be greater than 0");
+            return new ArrayList<>(); // Return an empty list if N is invalid
+        }
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Capital, city.Population " +
+                            "FROM country JOIN city ON country.capital = city.id " +
+                            "WHERE Continent = '" + Continent+ "' " +
+                            "ORDER BY city.Population DESC " +
+                            "LIMIT " + n; // Fetch only the top N records
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<CapitalCity> QueryTwentyOneList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String CapitalCityName = rset.getString("Capital");
+                int CapitalCityPopulation = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                CapitalCity CapitalCitiesInfo = new CapitalCity(CapitalCityName, CapitalCityPopulation);
+                QueryTwentyOneList.add(CapitalCitiesInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QueryTwentyOneList.isEmpty()) {
+                System.out.println("No capital cities found.");
+            }
+
+            return QueryTwentyOneList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
 
 
 
@@ -324,11 +377,19 @@ public class App {
         }
 
         System.out.println("This is query 20" + "\n");
-        ArrayList<CapitalCity> TopNCapitalContinent = a.getTopNPopulatedCapitalCitiesWorld(5);
+        ArrayList<CapitalCity> TopNCapitalWorld = a.getTopNPopulatedCapitalCitiesWorld(5);
 
-        for (CapitalCity TopNCapitalContinentStorage : TopNCapitalContinent ) {
+        for (CapitalCity TopNCapitalWorldStorage : TopNCapitalWorld ) {
+            System.out.println(TopNCapitalWorldStorage.CapitalCityName + " Population = " + TopNCapitalWorldStorage.CapitalCityPopulation);
+        }
+
+        System.out.println("This is query 21" + "\n");
+        ArrayList<CapitalCity> TopNCapitalContinent = a.getTopNPopulatedCapitalCitiesContinent("Asia",5);
+
+        for (CapitalCity TopNCapitalContinentStorage : TopNCapitalContinent) {
             System.out.println(TopNCapitalContinentStorage.CapitalCityName + " Population = " + TopNCapitalContinentStorage.CapitalCityPopulation);
         }
+
 
 
 
