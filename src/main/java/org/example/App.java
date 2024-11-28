@@ -10,7 +10,7 @@ public class App {
 
 
 
-    public ArrayList<Cities> topNCitiesInRegion(int n) throws SQLException {
+    public ArrayList<Cities> topNCitiesInRegion(String cities,int n) throws SQLException {
         // Create an SQL statement
         // Validate input parameter
         if (n <= 0 ) {
@@ -23,14 +23,14 @@ public class App {
             Statement stmt = con.createStatement();
             String strSelect =
                     "SELECT Name " +
-                            "FROM city " +
-                            "ORDER BY Population DESC";
+                            "FROM city  " +
+                            "ORDER BY Population DESC"
                             "LIMIT " + n;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
             // List to store city information
-            ArrayList<Cities> queryOneList = new ArrayList<>();
+            ArrayList<Cities> queryFourteenList = new ArrayList<>();
             boolean isCorrect = false;
 
             // Process the results from the query
@@ -40,8 +40,8 @@ public class App {
                 int Population = rset.getInt("Population");
 
                 // Format the string to store in the list
-                Countries queryOneInfo = new Countries(CountryName, Population); //queryOne.CountryName + " Population = " + queryOne.Population;
-                queryOneList.add(queryOneInfo);
+                Countries queryFourteenInfo = new Cities(Cities, Population); //queryOne.CountryName + " Population = " + queryOne.Population;
+                queryFourteenList.add(queryFourteenInfo);
                 isCorrect = true;
 
             }
@@ -50,7 +50,7 @@ public class App {
             if (!isCorrect) {
                 System.out.println("Unsuccessful");
             }
-            return queryOneList;
+            return queryFourteenList;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -77,16 +77,16 @@ public class App {
         App a = new App();
         a.connect(args);
 
-        ArrayList<Countries> getCountriesInWorld= a.getCountriesInWorld();
+        ArrayList<Countries> topNCitiesInRegion= a.topNCitiesInRegion();
 
         //  print the result if conditions is passed
-        if (getCountriesInWorld != null && getCountriesInWorld.stream().count() > 0) {
-            System.out.println("Countries in World:");
-            for (Countries countryInfo : getCountriesInWorld) {
-                System.out.println(countryInfo.CountryName + " Population = " + countryInfo.Population);
+        if (topNCitiesInRegion != null && topNCitiesInRegion.stream().count() > 0) {
+            System.out.println("Cities in Region:");
+            for (Countries countryInfo : topNCitiesInRegion) {
+                System.out.println(countryInfo.cities + " Population = " + countryInfo.Population);
             }
         } else {
-            System.out.println("No countries found in the World.");
+            System.out.println("No cities found in the region.");
         }
 
 
