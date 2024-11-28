@@ -14,7 +14,6 @@ public class App {
         // Create an SQL statement
 
 
-
         //try statement handling exception of query
         try {
             Statement stmt = con.createStatement();
@@ -57,8 +56,6 @@ public class App {
 
 
 
-
-
     /**
      * Connection to MySQL database.
      */
@@ -94,9 +91,13 @@ public class App {
         a.disconnect();
     }
 
-    /**
-     * Connect to the MySQL database.
-     */
+
+
+
+
+        /**
+         * Connect to the MySQL database.
+         */
     public void connect(String[] params) {
         try {
             // Load Database driver
