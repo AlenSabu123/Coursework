@@ -311,13 +311,6 @@ public class App {
 
 
 
-
-
-
-
-
-
-
     /**
      * Connection to MySQL database.
      */
