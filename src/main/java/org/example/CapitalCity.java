@@ -9,7 +9,7 @@ public class CapitalCity {
     public int CapitalCityPopulation;
 
     //constructor for countries class
-    public CapitalCity(String CapitalCityname, int CapitalCityPopulation){
+    public CapitalCity(String CapitalCityName, int CapitalCityPopulation){
         this.CapitalCityName = CapitalCityName;
         this.CapitalCityPopulation = CapitalCityPopulation;
     }
