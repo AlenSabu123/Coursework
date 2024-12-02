@@ -161,9 +161,6 @@ public class App {
 
 
 
-
-
-
     public ArrayList<Countries> getTopNPopulatedCountriesSix(String Region,int n) throws SQLException {
         // Validate input parameter
         if (n <= 0 ) {
@@ -261,7 +258,7 @@ public class App {
         }
     }
 
-    public ArrayList<CapitalCity> allCapitalCitiesInARegion(String Region) throws SQLException {
+  /*  public ArrayList<CapitalCity> allCapitalCitiesInARegion(String Region) throws SQLException {
         // Validate input parameter
 
 
