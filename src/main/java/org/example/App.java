@@ -225,7 +225,7 @@ public class App {
                    "SELECT Capital, city.population " +
                            "FROM country JOIN city ON country.capital = city.id " +
                            "WHERE Region = '" + Region + "' " +
-                           "ORDER BY city.population DESC ";
+                           "ORDER BY city.population DESdC ";
 
 
 
@@ -261,6 +261,52 @@ public class App {
         }
     }
 
+    public ArrayList<CapitalCity> allCapitalCitiesInARegion(String Region) throws SQLException {
+        // Validate input parameter
+
+
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT Capital, city.population " +
+                            "FROM country JOIN city ON country.capital = city.id " +
+                            "WHERE Region = '" + Region + "' " +
+                            "ORDER BY city.population DESdC ";
+
+
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // List to store country information
+            ArrayList<CapitalCity> QueryNineteenList = new ArrayList<>();
+
+
+            // Process the results from the query
+            while (rset.next()) {
+                // Retrieve country name and population
+                String CapitalCity = rset.getString("Capital");
+                int CapitalCityPopulation = rset.getInt("Population");
+
+                // Create a Countries object and add it to the list
+                CapitalCity captialCityNineteenInfo = new CapitalCity(CapitalCity,CapitalCityPopulation);
+                QueryNineteenList.add(captialCityNineteenInfo);
+
+            }
+
+            // If no results were found, print a message
+            if (QueryNineteenList.isEmpty()) {
+                System.out.println("No countries found.");
+            }
+
+            return QueryNineteenList;
+        }  catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
 
 
 
