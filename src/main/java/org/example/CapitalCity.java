@@ -2,7 +2,7 @@ package org.example;
 
 public class CapitalCity {
 
-    //Instantiation of country name attribute
+    //Instantiation of country  name attribute
     public String CapitalCityName;
 
     //Instantiation of country population attribute
