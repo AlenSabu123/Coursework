@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Unit Tests
-        run: mvn -Dtest= src/test/java/org/example/MyTest.java
+        run: mvn -Dtest=org.example.MyTest test
 
 
   build:
