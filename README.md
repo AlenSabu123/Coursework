@@ -4,7 +4,7 @@ hello
 [![Releases](https://img.shields.io/github/release/AlenSabu123/sem/all.svg?style=flat-square)](https://github.com/AlenSabu123sem/releases)
 
 Code of conduct
-
+ye
 Our Values
 Respect: Treat each other with kindness and value different perspectives.
 
