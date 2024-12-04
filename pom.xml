@@ -41,6 +41,7 @@
                 <version>3.3.0</version>
                 <configuration>
                     <archive>
+                        <finalName>Coursework</finalName>
                         <manifest>
                             <mainClass>org.example.App</mainClass>
                         </manifest>
@@ -48,6 +49,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
