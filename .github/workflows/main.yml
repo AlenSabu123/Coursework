@@ -1,14 +1,17 @@
 name: A workflow for my Hello World App
-on: push
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
-    name: Hello world action
+    name: Build Run in Docker and Deploy Release
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
@@ -16,7 +19,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Package with Maven
-        run: mvn clean package
+        run: mvn package -DskipTests
 
       - name: List target directory contents
         run: ls -R target
@@ -29,3 +32,21 @@ jobs:
 
       - name: View logs
         run: docker logs semcontainer
+
+      - name: Copy Output
+        run: docker container cp semcontainer:/tmp/reports ./reports
+
+      - name: Deploy Reports
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: reports
+          folder: reports
+
+      - name: Deploy JAR File
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: "latest"
+          files: |
+            ./target/*.jar
