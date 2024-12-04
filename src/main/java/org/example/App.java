@@ -7,7 +7,7 @@ import java.util.List;
 
 public class App {
 
-//instantiating class to carry out query takes in paramter continent.
+//instantiating class to  carry out query takes in paramter continent.
     public ArrayList<Countries> getCountriesInContinent(String continent) throws SQLException {
         // Create an SQL statement
         if (continent == null) {
