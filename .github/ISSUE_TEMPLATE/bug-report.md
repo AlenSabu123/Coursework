@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-Getting wrong set of data for query 6 population instead of ASC
+Getting wrong set of data for query 6 population instead of ASC!
 
 **To Reproduce**
 Steps to reproduce the behavior:
