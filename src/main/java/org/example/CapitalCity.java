@@ -5,7 +5,7 @@ public class CapitalCity {
     //Instantiation of country  name attribute
     public String CapitalCityName;
 
-    //Instantiation of country population attribute
+    //Instantiat ion of country population attribute
     public int CapitalCityPopulation;
 
     //constructor for countries class
