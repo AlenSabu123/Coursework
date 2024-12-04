@@ -19,7 +19,8 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Unit Tests
-        run: mvn -Dtest=com.napier.Coursework.MyTest test
+        run: mvn -Dtest= src/test/java/org/example/MyTest.java
+
 
   build:
     name: Build and Start Using docker compose
