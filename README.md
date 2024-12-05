@@ -3,6 +3,7 @@ hello
 [![LICENSE](https://img.shields.io/github/license/AlenSabu123/sem.svg?style=flat-square)](https://github.com/AlenSabu123/sem/blob/master/LICENSE)
 [![Releases](https://img.shields.io/github/release/AlenSabu123/sem/all.svg?style=flat-square)](https://github.com/AlenSabu123sem/releases)
 
+20 requirements of 24 have been implemented, which is 83.3%
 Code of conduct
 
 Our Values
