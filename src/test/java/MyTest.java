@@ -3,19 +3,28 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.example.App;
 import java.sql.SQLException;
 
-//class for my test
+/**
+ * class for my test
+ * */
 class MyTest
 {
-    //static app object
+  /**
+   * instantiation of app object
+   * */
     static App app;
 
+    /**
+     * init object intiates app object
+     */
     @BeforeAll
     static void init()
     {
         app = new App();
     }
 
-    //Test to test if method getCountriesInContinent is working
+    /**
+     * sample test for method in app class for a query
+     * */
     @Test
     void getCountriesInContinentTestNull()
     {

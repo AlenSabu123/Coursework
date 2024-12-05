@@ -1,13 +1,23 @@
 package org.example;
-
+/**
+ * countries class instantiation
+ **/
 public class Countries {
 
-    //Instantiation of country name attribute
+    /**
+     * country name string instantiation
+     * */
     public String CountryName;
-    //Instantiation of country population attribute
+
+    /**
+     * country name string instantiation
+     * */
     public int Population;
 
-    //constructor for countries class
+    /**
+     * countries object instantiation
+     * with name and population paramaters.
+     * */
     public Countries(String name, int pop){
         this.CountryName = name;
         this.Population = pop;

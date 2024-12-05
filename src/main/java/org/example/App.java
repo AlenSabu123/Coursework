@@ -4,10 +4,13 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class App {
-
+    /**
+     * Countries class with CountryName(string) and Population(int) paramters
+     */
     public static class Countries {
         public String CountryName;
         public int Population;
+
 
         public Countries(String countryName, int population) {
             this.CountryName = countryName;
@@ -15,6 +18,9 @@ public class App {
         }
     }
 
+    /**
+     * City method with CityName (string) and population(integer) paramters.
+     * */
     public static class Cities {
         public String CityName;
         public int Population;
@@ -25,6 +31,9 @@ public class App {
         }
     }
 
+    /**
+     * Represents a capital city with its name and population.
+     */
     public static class CapitalCity {
         public String CapitalCityName;
         public int CapitalCityPopulation;
@@ -35,6 +44,14 @@ public class App {
         }
     }
 
+    /**
+     * Retrieves a list of countries in a specified continent, ordered by population in descending order.
+     *
+     * @param continent the name of the continent to filter countries by
+     * @return an {@link ArrayList} of {@code Countries} objects representing the countries in the specified continent,
+     *         or an empty list if no countries are found or the continent parameter is {@code null}.
+     * @throws SQLException if a database access error occurs
+     */
     public ArrayList<Countries> getCountriesInContinent(String continent) throws SQLException {
         if (continent == null) {
             System.out.println("Continent parameter is null");
@@ -58,6 +75,14 @@ public class App {
         }
     }
 
+    /**
+     * Retrieves a list of countries in a specified region, ordered by population in descending order.
+     *
+     * @param region the name of the region to filter countries by
+     * @return an array list of Country objects representing the countries in the specified region,
+     *         or an empty list if no countries are found or the region parameter is {@code null} or empty.
+     * @throws SQLException if a database access error occurs
+     */
     public ArrayList<Countries> getCountriesInRegionOrderedByPopulation(String region) throws SQLException {
         if (region == null || region.isEmpty()) {
             System.out.println("Region parameter is null or empty");
@@ -81,6 +106,14 @@ public class App {
         }
     }
 
+    /**
+     * Retrieves a list of countries in a specified region, ordered by population in descending order.
+     *
+     * takes in paramter int n
+     * @return an array list of Country objects representing the top n populated countries,
+     *         or an empty list if no countries are found or the region parameter is {@code null} or empty.
+     * @throws SQLException if a database access error occurs
+     */
     public ArrayList<Countries> getTopNPopulatedCountries(int n) throws SQLException {
         if (n <= 0) {
             System.out.println("Invalid input: N must be greater than 0");
@@ -102,6 +135,16 @@ public class App {
             return null;
         }
     }
+
+    /**
+     * Retrieves the top N most populated countries in a specified continent, ordered by population in descending order.
+     *
+     * @param continent the name of the continent to filter countries by
+     * @param n the number of top populated countries to retrieve; must be greater than 0
+     * @return an {@link ArrayList} of {@code Countries} objects representing the top N most populated countries
+     *         in the specified continent, or an empty list if the input is invalid or no results are found
+     * @throws SQLException if a database access error occurs
+     */
 
     public ArrayList<Countries> getTopNPopulatedCountriesInContinent(String continent, int n) throws SQLException {
         if (n <= 0) {
@@ -125,6 +168,15 @@ public class App {
         }
     }
 
+    /**
+     * Retrieves the top N most populated countries in a specified region, ordered by population in descending order.
+     *
+     * @param region the name of the region to filter countries by
+     * @param n the number of top populated countries to retrieve; must be greater than 0
+     * @return an {@link ArrayList} of {@code Countries} objects representing the top N most populated countries
+     *         in the specified region, or an empty list if the input is invalid or no results are found
+     * @throws SQLException if a database access error occurs
+     */
     public ArrayList<Countries> getTopNPopulatedCountriesInRegion(String region, int n) throws SQLException {
         if (n <= 0) {
             System.out.println("Invalid input: N must be greater than 0");
@@ -147,6 +199,10 @@ public class App {
         }
     }
 
+    /**
+     * gets all cities ordered by population
+     * throws SQL exception if invalid results are obtained.
+     * */
     public ArrayList<Cities> getAllCitiesOrderedByPopulation() throws SQLException {
         try {
             Statement stmt = con.createStatement();
@@ -165,7 +221,11 @@ public class App {
             return null;
         }
     }
-
+/**
+ * get cities in a continent order by population
+ * takes in paramter continent
+ * throws SQL exception if invalid results are obtained.
+ * */
     public ArrayList<Cities> getCitiesInContinentOrderedByPopulation(String continent) throws SQLException {
         if (continent == null || continent.isEmpty()) {
             System.out.println("Continent parameter is null or empty");
@@ -212,6 +272,15 @@ public class App {
         }
     }
 
+    /**
+     * Retrieves a list of cities in a specified country, ordered by population in descending order.
+     *
+     * @param country the name of the country to filter cities by
+     * @return an {@link ArrayList} of {@code Cities} objects representing the cities in the specified country,
+     *         ordered by population in descending order, or an empty list if the input is invalid or no results are found
+     * @throws SQLException if a database access error occurs
+     */
+
     public ArrayList<Cities> getCitiesInCountryOrderedByPopulation(String country) throws SQLException {
         if (country == null || country.isEmpty()) {
             System.out.println("Country parameter is null or empty");
@@ -235,6 +304,11 @@ public class App {
         }
     }
 
+    /**
+     * Get Cities in District ordered population
+     * takes in parameter district.
+     * throws SQL exception if invalid results obtained.
+     * */
     public ArrayList<Cities> getCitiesInDistrictOrderedByPopulation(String district) throws SQLException {
         if (district == null || district.isEmpty()) {
             System.out.println("District parameter is null or empty");
@@ -257,7 +331,14 @@ public class App {
             return null;
         }
     }
-
+    /**
+     * Retrieves the top N cities worldwide, ordered by population in descending order.
+     *
+     * @param n the number of top populated cities to retrieve; must be greater than 0
+     * @return an {@link ArrayList} of {@code Cities} objects representing the top N most populated cities,
+     *         or an empty list if the input is invalid or no results are found
+     * @throws SQLException if a database access error occurs
+     */
     public ArrayList<Cities> getTopNCitiesOrderedByPopulation(int n) throws SQLException {
         if (n <= 0) {
             System.out.println("Invalid input: N must be greater than 0");
@@ -279,7 +360,13 @@ public class App {
             return null;
         }
     }
-
+    /**
+     * Retrieves all capital cities worldwide, ordered by population in descending order.
+     *
+     * @return an {@link ArrayList} of {@code Cities} objects representing capital cities ordered by population,
+     *         or {@code null} if an error occurs during query execution
+     * @throws SQLException if a database access error occurs
+     */
     public ArrayList<Cities> getCapitalCitiesOrderedByPopulation() throws SQLException {
         try {
             Statement stmt = con.createStatement();
@@ -298,7 +385,13 @@ public class App {
             return null;
         }
     }
-
+    /**
+     * Retrieves all capital cities worldwide, ordered by population in descending order.
+     *
+     * @return an {@link ArrayList} of {@code Cities} objects representing capital cities ordered by population,
+     *         or {@code null} if an error occurs during query execution
+     * @throws SQLException if a database access error occurs
+     */
     public ArrayList<Cities> getTopNCapitalCitiesOrderedByPopulation(int n) throws SQLException {
         if (n <= 0) {
             System.out.println("Invalid input: N must be greater than 0");
@@ -321,6 +414,14 @@ public class App {
         }
     }
 
+    /**
+     * Retrieves the capital cities in a specific continent ordered by population in descending order.
+     *
+     * @param continent the continent to search for
+     * @return an {@link ArrayList} of {@code Cities} objects representing the capital cities ordered by population,
+     *         or an empty list if no cities are found or an invalid parameter is provided
+     * @throws SQLException if a database access error occurs
+     */
     public ArrayList<Cities> getCapitalCitiesInContinentOrderedByPopulation(String continent) throws SQLException {
         if (continent == null || continent.isEmpty()) {
             System.out.println("Continent parameter is null or empty");
@@ -343,7 +444,9 @@ public class App {
             return null;
         }
     }
-
+/**
+ *  instantiation of connection object
+ * */
     private static Connection con = null;
 
     public void connect(String[] params) {
@@ -373,7 +476,9 @@ public class App {
             }
         }
     }
-
+/**
+ * disconnect method
+ * */
     public void disconnect() {
         if (con != null) {
             try {
@@ -384,124 +489,202 @@ public class App {
         }
     }
 
+    /**
+     * main method
+     * */
     public static void main(String[] args) throws SQLException {
+        /**
+         * instantiation of app object
+         * */
         App app = new App();
         app.connect(args);
-
+        /**
+         * query 2 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 2:");
         ArrayList<Countries> countriesInContinent = app.getCountriesInContinent("Africa");
         for (Countries country : countriesInContinent) {
             System.out.println(country.CountryName + " Population = " + country.Population);
         }
-
+        /**
+         * query 3 output
+         * for loop execute print
+         * */
         System.out.println("\nThis is Query 3:");
         ArrayList<Countries> countriesInRegion = app.getCountriesInRegionOrderedByPopulation("Caribbean");
         for (Countries country : countriesInRegion) {
             System.out.println(country.CountryName + " Population = " + country.Population);
         }
 
+        /**
+         * query 4 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 4:");
         ArrayList<Countries> topNCountries = app.getTopNPopulatedCountries(5);
         for (Countries country : topNCountries) {
             System.out.println(country.CountryName + " Population = " + country.Population);
         }
-
+    /**
+     * query 5 output
+     * for loop executed print
+     * */
         System.out.println("\nThis is Query 5:");
         ArrayList<Countries> topCountriesInContinent = app.getTopNPopulatedCountriesInContinent("Asia", 5);
         for (Countries country : topCountriesInContinent) {
             System.out.println(country.CountryName + " Population = " + country.Population);
         }
 
+        /**
+         * query 6 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 6:");
         ArrayList<Countries> topCountriesInRegion = app.getTopNPopulatedCountriesInRegion("Caribbean", 5);
         for (Countries country : topCountriesInRegion) {
             System.out.println(country.CountryName + " Population = " + country.Population);
         }
 
+        /**
+         * query 7 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 7:");
         ArrayList<Cities> citiesInWorld = app.getAllCitiesOrderedByPopulation();
         for (Cities city : citiesInWorld) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
-
+    /**
+     * query 8 output
+     * for loop executed print
+     * */
         System.out.println("\nThis is Query 8:");
         ArrayList<Cities> citiesInContinent = app.getCitiesInContinentOrderedByPopulation("Asia");
         for (Cities city : citiesInContinent) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 9 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 9:");
         ArrayList<Cities> citiesInRegion = app.getCitiesInRegionOrderedByPopulation("Caribbean");
         for (Cities city : citiesInRegion) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 10 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 10:");
         ArrayList<Cities> citiesInCountry = app.getCitiesInCountryOrderedByPopulation("France");
         for (Cities city : citiesInCountry) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 11 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 11:");
         ArrayList<Cities> citiesInDistrict = app.getCitiesInDistrictOrderedByPopulation("Tokyo-to");
         for (Cities city : citiesInDistrict) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 12 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 12:");
         ArrayList<Cities> topNCities = app.getTopNCitiesOrderedByPopulation(5);
         for (Cities city : topNCities) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 13 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 13:");
         ArrayList<Cities> topCitiesInContinent = app.getCitiesInContinentOrderedByPopulation("Asia");
         for (Cities city : topCitiesInContinent) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 14 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 14:");
         ArrayList<Cities> topCitiesInRegion = app.getCitiesInRegionOrderedByPopulation("Caribbean");
         for (Cities city : topCitiesInRegion) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
-
+    /**
+     * query 15 output
+     * for loop executed print
+     * */
         System.out.println("\nThis is Query 15:");
         ArrayList<Cities> topCitiesInCountry = app.getCitiesInCountryOrderedByPopulation("France");
         for (Cities city : topCitiesInCountry) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
-
+    /**
+     * query 16 output
+     * for loop executed print
+     * */
         System.out.println("\nThis is Query 16:");
         ArrayList<Cities> topCitiesInDistrict = app.getCitiesInDistrictOrderedByPopulation("Tokyo-to");
         for (Cities city : topCitiesInDistrict) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 17 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 17:");
         ArrayList<Cities> capitalCities = app.getCapitalCitiesOrderedByPopulation();
         for (Cities city : capitalCities) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 18 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 18:");
         ArrayList<Cities> capitalCitiesInContinent = app.getCapitalCitiesInContinentOrderedByPopulation("Asia");
         for (Cities city : capitalCitiesInContinent) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 20 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 20:");
         ArrayList<Cities> topCapitalCities = app.getTopNCapitalCitiesOrderedByPopulation(5);
         for (Cities city : topCapitalCities) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
 
+        /**
+         * query 21 output
+         * for loop executed print
+         * */
         System.out.println("\nThis is Query 21:");
         ArrayList<Cities> topCapitalCitiesInContinent = app.getCapitalCitiesInContinentOrderedByPopulation("Asia");
         for (Cities city : topCapitalCitiesInContinent) {
             System.out.println(city.CityName + " Population = " + city.Population);
         }
-
+        /**
+         * app disconnect
+         * */
         app.disconnect();
     }
 }

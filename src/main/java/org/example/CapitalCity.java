@@ -1,14 +1,22 @@
 package org.example;
-
+/**
+ * capital city class instantiation
+ * */
 public class CapitalCity {
 
-    //Instantiation of country name attribute
+    /**
+     * capital city name instantiation
+     * */
     public String CapitalCityName;
 
-    //Instantiation of country population attribute
+    /**
+     * capital city name population instantiation
+     * */
     public int CapitalCityPopulation;
 
-    //constructor for countries class
+    /**
+     * capital city object instantiation
+     * */
     public CapitalCity(String CapitalCityName, int CapitalCityPopulation){
         this.CapitalCityName = CapitalCityName;
         this.CapitalCityPopulation = CapitalCityPopulation;
